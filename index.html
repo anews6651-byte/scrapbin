@@ -253,18 +253,26 @@
             position: relative;
             overflow: hidden;
             width: 100%;
+            background: url('hero1.png') center/cover no-repeat;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 8s ease-in-out infinite;
+            inset: 0;
+            background: linear-gradient(to right, rgba(26, 20, 8, 0.95) 0%, rgba(26, 20, 8, 0.7) 50%, rgba(26, 20, 8, 0.4) 100%);
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-dark) 0%, transparent 100%);
+            z-index: 1;
         }
 
         @keyframes pulse {
@@ -274,10 +282,12 @@
 
         .hero-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 40px;
             align-items: center;
             width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-text {
@@ -326,98 +336,9 @@
             color: var(--gold);
         }
 
-        /* Hero Visual */
+        /* Hero Visual - Hidden, using background image instead */
         .hero-visual {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .hero-graphic {
-            position: relative;
-            width: 100%;
-            max-width: 450px;
-            height: 450px;
-        }
-
-        .hero-graphic-main {
-            position: absolute;
-            inset: 0;
-            border-radius: 30px;
-            overflow: hidden;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .hero-graphic-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(1.1) contrast(1.05);
-        }
-
-        .hero-graphic-main::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 30px;
-            border: 2px solid var(--gold-glow);
-            background: linear-gradient(to top, rgba(10, 10, 10, 0.6) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .hero-graphic-main i {
-            font-size: 8rem;
-            color: var(--gold);
-            opacity: 0.8;
-        }
-
-        .hero-float-card {
-            position: absolute;
-            padding: 12px 16px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: float 4s ease-in-out infinite;
-            white-space: nowrap;
-        }
-
-        .hero-float-card:nth-child(2) {
-            top: 10%;
-            right: 5%;
-            animation-delay: -1s;
-        }
-
-        .hero-float-card:nth-child(3) {
-            bottom: 20%;
-            left: 0%;
-            animation-delay: -2s;
-        }
-
-        .hero-float-card:nth-child(4) {
-            bottom: 5%;
-            right: 10%;
-            animation-delay: -3s;
-        }
-
-        .hero-float-card i {
-            color: var(--gold);
-            font-size: 1.2rem;
-        }
-
-        .hero-float-card span {
-            font-weight: 600;
-            font-size: 0.85rem;
+            display: none;
         }
 
         /* ==================== CATEGORIES SECTION ==================== */
@@ -1125,11 +1046,6 @@
                 margin-top: 30px;
             }
 
-            .hero-graphic {
-                width: 300px;
-                height: 300px;
-            }
-
             .categories-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1218,18 +1134,6 @@
             }
 
             .hero-visual {
-                width: 100%;
-                overflow: hidden;
-            }
-
-            .hero-graphic {
-                width: 80%;
-                max-width: 300px;
-                height: 300px;
-                margin: 0 auto;
-            }
-
-            .hero-float-card {
                 display: none;
             }
 
@@ -1320,12 +1224,6 @@
             .trust-line {
                 gap: 6px;
                 font-size: 0.75rem;
-            }
-
-            .hero-graphic {
-                width: 85%;
-                max-width: 260px;
-                height: 260px;
             }
 
             .categories-grid {
