@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrapBin - Turn Your Scrap Into Cash</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ==================== CSS VARIABLES ==================== */
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-charcoal: #121212;
+            --bg-grey: #1a1a1a;
+            --copper: #d4763c;
+            --copper-light: #e8945c;
+            --copper-glow: rgba(212, 118, 60, 0.3);
+            --off-white: #f5f5f5;
+            --grey-text: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ==================== RESET & BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--off-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==================== SCROLLBAR ==================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--copper);
+            border-radius: 4px;
+        }
+
+        /* ==================== UTILITY CLASSES ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--grey-text);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .copper-text {
+            color: var(--copper);
+        }
+
+        /* ==================== GLASS CARD BASE ==================== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: var(--glass-hover);
+            border-color: var(--copper-glow);
+            box-shadow: 0 8px 32px var(--copper-glow);
+            transform: translateY(-5px);
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--copper), var(--copper-light));
+            color: var(--bg-dark);
+            box-shadow: 0 4px 20px var(--copper-glow);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 30px rgba(212, 118, 60, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--off-white);
+            border: 2px solid var(--copper);
+        }
+
+        .btn-secondary:hover {
+            background: var(--copper);
+            color: var(--bg-dark);
+        }
+
+        /* ==================== NAVBAR ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--off-white);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--copper);
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--grey-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--copper);
+        }
+
+        .nav-links .btn-primary {
+            padding: 10px 24px;
+            font-size: 0.9rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--off-white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--grey-text);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: var(--grey-text);
+            font-size: 0.9rem;
+        }
+
+        .trust-line span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .trust-line i {
+            color: var(--copper);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-graphic {
+            position: relative;
+            width: 450px;
+            height: 450px;
+        }
+
+        .hero-graphic-main {
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            overflow: hidden;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-graphic-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.1) contrast(1.05);
+        }
+
+        .hero-graphic-main::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 30px;
+            border: 2px solid var(--copper-glow);
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.6) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-graphic-main i {
+            font-size: 8rem;
+            color: var(--copper);
+            opacity: 0.8;
+        }
+
+        .hero-float-card {
+            position: absolute;
+            padding: 15px 20px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-float-card:nth-child(2) {
+            top: 10%;
+            right: -10%;
+            animation-delay: -1s;
+        }
+
+        .hero-float-card:nth-child(3) {
+            bottom: 20%;
+            left: -15%;
+            animation-delay: -2s;
+        }
+
+        .hero-float-card:nth-child(4) {
+            bottom: 5%;
+            right: -5%;
+            animation-delay: -3s;
+        }
+
+        .hero-float-card i {
+            color: var(--copper);
+            font-size: 1.2rem;
+        }
+
+        .hero-float-card span {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* ==================== CATEGORIES SECTION ==================== */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category-icon {
+            width: 100%;
+            height: 180px;
+            margin: 0 auto 20px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .category-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .category-card:hover .category-icon img {
+            transform: scale(1.1);
+        }
+
+        .category-icon i {
+            font-size: 1.8rem;
+            color: var(--copper);
+        }
+
+        .category-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .category-card p {
+            color: var(--grey-text);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .category-card .btn {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+
+        /* ==================== BUY & SELL SECTION ==================== */
+        .buy-sell-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .buy-sell-card {
+            padding: 40px;
+        }
+
+        .buy-sell-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .buy-sell-card > p {
+            color: var(--grey-text);
+            margin-bottom: 25px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--grey-text);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li i {
+            color: var(--copper);
+            width: 20px;
+        }
+
+        /* ==================== HOW IT WORKS ==================== */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--copper), var(--copper-glow), transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: calc(50% - 50px);
+            padding: 25px;
+        }
+
+        .timeline-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--copper), var(--copper-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--bg-dark);
+            z-index: 1;
+            box-shadow: 0 0 20px var(--copper-glow);
+        }
+
+        .timeline-content h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            color: var(--grey-text);
+            font-size: 0.95rem;
+        }
+
+        /* ==================== WHY CHOOSE US ==================== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .why-card {
+            padding: 35px 25px;
+            text-align: center;
+        }
+
+        .why-card-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--copper-glow), transparent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .why-card-icon i {
+            font-size: 1.5rem;
+            color: var(--copper);
+        }
+
+        .why-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            color: var(--grey-text);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== STATS SECTION ==================== */
+        .stats-section {
+            padding: 60px 0;
+            background: var(--glass-bg);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--copper);
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            color: var(--grey-text);
+            font-size: 0.95rem;
+        }
+
+        /* ==================== CTA SECTION ==================== */
+        .cta-section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .cta-card {
+            position: relative;
+            padding: 60px;
+            text-align: center;
+        }
+
+        .cta-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .cta-card p {
+            font-size: 1.1rem;
+            color: var(--grey-text);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-form {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--off-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--copper);
+            box-shadow: 0 0 15px var(--copper-glow);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select option {
+            background: var(--bg-dark);
+        }
+
+        .contact-info {
+            padding: 40px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-info-icon i {
+            color: var(--copper);
+            font-size: 1.1rem;
+        }
+
+        .contact-info-text h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .contact-info-text p {
+            color: var(--grey-text);
+            font-size: 0.95rem;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: var(--bg-charcoal);
+            border-top: 1px solid var(--glass-border);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about .logo {
+            margin-bottom: 15px;
+        }
+
+        .footer-about p {
+            color: var(--grey-text);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey-text);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--copper);
+            color: var(--bg-dark);
+            border-color: var(--copper);
+        }
+
+        .footer-links h4,
+        .footer-categories h4,
+        .footer-contact h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .footer-links ul,
+        .footer-categories ul {
+            list-style: none;
+        }
+
+        .footer-links li,
+        .footer-categories li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a,
+        .footer-categories a {
+            color: var(--grey-text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover,
+        .footer-categories a:hover {
+            color: var(--copper);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--grey-text);
+            font-size: 0.95rem;
+        }
+
+        .footer-contact-item i {
+            color: var(--copper);
+            width: 18px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 25px;
+            text-align: center;
+            color: var(--grey-text);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-grey);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 35px;
+            height: 35px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--grey-text);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--copper);
+            color: var(--bg-dark);
+        }
+
+        /* ==================== MOBILE MENU ==================== */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--bg-charcoal);
+            border-left: 1px solid var(--glass-border);
+            z-index: 1500;
+            padding: 80px 30px 30px;
+            transition: right 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+        }
+
+        .mobile-menu-links li {
+            margin-bottom: 5px;
+        }
+
+        .mobile-menu-links a {
+            display: block;
+            padding: 15px;
+            color: var(--grey-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-links a:hover,
+        .mobile-menu-links a.active {
+            background: var(--glass-bg);
+            color: var(--copper);
+        }
+
+        .mobile-menu-links .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        /* ==================== SCROLL REVEAL ==================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==================== FLOATING WHATSAPP ==================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .trust-line {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                display: flex;
+                justify-content: center;
+                margin-top: 30px;
+            }
+
+            .hero-graphic {
+                width: 300px;
+                height: 300px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline-line {
+                left: 30px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: row;
+                padding-left: 60px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-number {
+                left: 30px;
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .hero-visual {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .hero-graphic {
+                width: 280px;
+                height: 280px;
+            }
+
+            .hero-float-card {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
+
+            .hero-float-card span {
+                font-size: 0.75rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .category-icon {
+                height: 120px;
+            }
+
+            .category-card h3 {
+                font-size: 0.95rem;
+            }
+
+            .category-card p {
+                font-size: 0.8rem;
+            }
+
+            .category-card .btn {
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .why-card {
+                padding: 25px 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+            }
+
+            .stat-item h2 {
+                font-size: 1.8rem;
+            }
+
+            .stat-item p {
+                font-size: 0.85rem;
+            }
+
+            .cta-card {
+                padding: 35px 20px;
+            }
+
+            .cta-card h2 {
+                font-size: 1.6rem;
+            }
+
+            .cta-card p {
+                font-size: 0.95rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .contact-form,
+            .contact-info {
+                padding: 25px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+                bottom: 20px;
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .trust-line {
+                gap: 10px;
+                font-size: 0.8rem;
+            }
+
+            .hero-graphic {
+                width: 250px;
+                height: 250px;
+            }
+
+            .hero-float-card:nth-child(2) {
+                right: -5%;
+            }
+
+            .hero-float-card:nth-child(3) {
+                left: -5%;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .category-icon {
+                height: 150px;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+            }
+
+            .timeline-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                left: 20px;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .stat-item {
+                padding: 15px;
+                background: var(--glass-bg);
+                border-radius: 12px;
+                border: 1px solid var(--glass-border);
+            }
+
+            .buy-sell-card {
+                padding: 20px;
+            }
+
+            .feature-list li {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <i class="fas fa-recycle"></i>
+                ScrapBin
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#categories">Scrap Categories</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#why-us">Why Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://wa.me/918985736783" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Contact Owner</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#categories">Scrap Categories</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#why-us">Why Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://wa.me/918985736783" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Contact Owner</a></li>
+        </ul>
+    </div>
+    <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text reveal">
+                    <h1>We Are <span class="copper-text">Buyers</span> Of All Types Of Scrap.</h1>
+                    <p>Serving Hyderabad, Secunderabad, Musheerabad and all over Telangana. We buy scrap from IT companies, offices, factories and households. Get instant cash for your scrap with free pickup from your doorstep.</p>
+                    <div class="hero-buttons">
+                        <a href="https://wa.me/918985736783" target="_blank" rel="noopener" class="btn btn-primary">
+                            <i class="fab fa-whatsapp"></i> Contact on WhatsApp
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fas fa-phone"></i> Call Now
+                        </a>
+                    </div>
+                    <div class="trust-line">
+                        <span><i class="fas fa-check-circle"></i> Copper</span>
+                        <span><i class="fas fa-check-circle"></i> Iron</span>
+                        <span><i class="fas fa-check-circle"></i> Plastic</span>
+                        <span><i class="fas fa-check-circle"></i> Aluminium</span>
+                        <span><i class="fas fa-check-circle"></i> E-Waste</span>
+                        <span><i class="fas fa-check-circle"></i> More</span>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-graphic">
+                        <div class="hero-graphic-main">
+                            <img src="hero1.png" alt="Charminar Hyderabad Scrap">
+                        </div>
+                        <div class="hero-float-card">
+                            <i class="fas fa-truck"></i>
+                            <span>Free Pickup</span>
+                        </div>
+                        <div class="hero-float-card">
+                            <i class="fas fa-shield-halved"></i>
+                            <span>Trusted Deals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CATEGORIES SECTION ==================== -->
+    <section class="section" id="categories">
+        <div class="container">
+            <h2 class="section-title reveal">What Scrap Do You <span class="copper-text">Have?</span></h2>
+            <p class="section-subtitle reveal">We buy all types of scrap from IT companies, offices, factories and households in Hyderabad, Secunderabad, Musheerabad and across Telangana. Choose your category and get the best price today.</p>
+            <div class="categories-grid">
+                <div class="glass-card category-card reveal" data-category="copper">
+                    <div class="category-icon">
+                        <img src="SCRAP COPPER.jpeg" alt="Copper Scrap" loading="lazy">
+                    </div>
+                    <h3>Copper Scrap</h3>
+                    <p>High-quality copper wire, pipes and components</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+                <div class="glass-card category-card reveal" data-category="iron">
+                    <div class="category-icon">
+                        <img src="IRON SCRAP.jpg" alt="Iron Scrap" loading="lazy">
+                    </div>
+                    <h3>Iron Scrap</h3>
+                    <p>Iron rods, sheets and structural materials</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+                <div class="glass-card category-card reveal" data-category="aluminium">
+                    <div class="category-icon">
+                        <img src="ALUMINIUM.webp" alt="Aluminium Scrap" loading="lazy">
+                    </div>
+                    <h3>Aluminium Scrap</h3>
+                    <p>Aluminium cans, frames and extrusions</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+                <div class="glass-card category-card reveal" data-category="plastic">
+                    <div class="category-icon">
+                        <img src="plastic-scrap-500x500.webp" alt="Plastic Scrap" loading="lazy">
+                    </div>
+                    <h3>Plastic Scrap</h3>
+                    <p>PET bottles, containers and plastic materials</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+                <div class="glass-card category-card reveal" data-category="ewaste">
+                    <div class="category-icon">
+                        <img src="E WASTE.webp" alt="E-Waste" loading="lazy">
+                    </div>
+                    <h3>E-Waste</h3>
+                    <p>Old electronics, computers and devices</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+                <div class="glass-card category-card reveal" data-category="paper">
+                    <div class="category-icon">
+                        <img src="PAPER SCRAP.jpeg" alt="Paper Scrap" loading="lazy">
+                    </div>
+                    <h3>Paper Scrap</h3>
+                    <p>Cardboard, newspapers and paper waste</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+                <div class="glass-card category-card reveal" data-category="steel">
+                    <div class="category-icon">
+                        <img src="STEEL.webp" alt="Steel Scrap" loading="lazy">
+                    </div>
+                    <h3>Steel Scrap</h3>
+                    <p>Stainless steel items and industrial scrap</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+                <div class="glass-card category-card reveal" data-category="other">
+                    <div class="category-icon">
+                        <img src="OTHER SCRAP IMAGE.webp" alt="Other Scrap" loading="lazy">
+                    </div>
+                    <h3>Other Scrap</h3>
+                    <p>Mixed materials and other recyclables</p>
+                    <a href="https://wa.me/918985736783" class="btn btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Sell Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== HOW IT WORKS ==================== -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title reveal">How It <span class="copper-text">Works</span></h2>
+            <p class="section-subtitle reveal">Selling your scrap is easy. Follow these simple steps and get paid instantly.</p>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content glass-card">
+                        <h4>Choose Your Scrap</h4>
+                        <p>Select Copper, Iron, Plastic, Aluminium, E-Waste or another material from our categories.</p>
+                    </div>
+                    <div class="timeline-number">1</div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content glass-card">
+                        <h4>Add Scrap Details</h4>
+                        <p>Enter quantity, condition and pickup/location details for accurate pricing.</p>
+                    </div>
+                    <div class="timeline-number">2</div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content glass-card">
+                        <h4>Get the Best Price</h4>
+                        <p>Compare available prices and choose the best deal for your materials.</p>
+                    </div>
+                    <div class="timeline-number">3</div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content glass-card">
+                        <h4>Schedule Pickup</h4>
+                        <p>Select a convenient pickup date and time that works for you.</p>
+                    </div>
+                    <div class="timeline-number">4</div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content glass-card">
+                        <h4>Get Paid</h4>
+                        <p>After verification, receive your payment securely through our platform.</p>
+                    </div>
+                    <div class="timeline-number">5</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== WHY CHOOSE US ==================== -->
+    <section class="section" id="why-us">
+        <div class="container">
+            <h2 class="section-title reveal">Why Choose <span class="copper-text">ScrapBin?</span></h2>
+            <p class="section-subtitle reveal">We are the most trusted scrap buyers in Hyderabad, Secunderabad, Musheerabad and all over Telangana. We buy from IT companies, offices, factories and households.</p>
+            <div class="why-grid">
+                <div class="glass-card why-card reveal">
+                    <div class="why-card-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Best Prices</h3>
+                    <p>We offer the highest market rates for all types of scrap in Hyderabad and Telangana.</p>
+                </div>
+                <div class="glass-card why-card reveal">
+                    <div class="why-card-icon">
+                        <i class="fas fa-truck-fast"></i>
+                    </div>
+                    <h3>Free Pickup</h3>
+                    <p>Free doorstep pickup from Hyderabad, Secunderabad, Musheerabad and all over Telangana.</p>
+                </div>
+                <div class="glass-card why-card reveal">
+                    <div class="why-card-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Instant Cash</h3>
+                    <p>Get instant cash payment as soon as we collect your scrap. No delays, no excuses.</p>
+                </div>
+                <div class="glass-card why-card reveal">
+                    <div class="why-card-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Trusted Buyers</h3>
+                    <p>We are the most trusted scrap buyers with years of experience in Hyderabad and Telangana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== STATS SECTION ==================== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <h2>10K+</h2>
+                    <p>Happy Sellers</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h2>500+</h2>
+                    <p>Trusted Buyers</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h2>25+</h2>
+                    <p>Scrap Categories</p>
+                </div>
+                <div class="stat-item reveal">
+                    <h2>50K+</h2>
+                    <p>Tons Recycled</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <div class="glass-card cta-card reveal">
+                <h2>We Are <span class="copper-text">Buyers</span> Of All Scrap.</h2>
+                <p>Serving Hyderabad, Secunderabad, Musheerabad and all over Telangana. We buy scrap from IT companies, offices, factories and households. Contact us today for the best scrap prices and free pickup.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/918985736783" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Contact on WhatsApp</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fas fa-phone"></i> Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Contact <span class="copper-text">Us</span></h2>
+            <p class="section-subtitle reveal">Ready to sell your scrap? Whether you are an IT company, office, factory or household, contact us now for instant cash and free pickup in Hyderabad and Telangana.</p>
+            <div class="contact-grid">
+                <div class="glass-card contact-info reveal" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin-bottom: 20px;">Get In Touch</h3>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/918985736783" target="_blank" rel="noopener" style="color: var(--copper); text-decoration: none;">+91 8985736783</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Phone</h4>
+                            <p>+91 8985736783</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Email</h4>
+                            <p>MDHAMEEDALI40@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Service Area</h4>
+                            <p>Hyderabad, Musheerabad & nearby areas</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Business Hours</h4>
+                            <p>Open 24 Hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="logo">
+                        <i class="fas fa-recycle"></i>
+                        ScrapBin
+                    </a>
+                    <p>We are the leading scrap buyers in Hyderabad, Secunderabad, Musheerabad and all over Telangana. We buy scrap from IT companies, offices, factories, households and industries. Get the best prices for your scrap with instant cash and free pickup.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#why-us">Why ScrapBin</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-categories">
+                    <h4>Scrap Categories</h4>
+                    <ul>
+                        <li><a href="#categories">Copper Scrap</a></li>
+                        <li><a href="#categories">Iron Scrap</a></li>
+                        <li><a href="#categories">Aluminium Scrap</a></li>
+                        <li><a href="#categories">Plastic Scrap</a></li>
+                        <li><a href="#categories">E-Waste</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/918985736783" target="_blank" rel="noopener" style="color: var(--grey-text); text-decoration: none;">WhatsApp: +91 8985736783</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 8985736783</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>MDHAMEEDALI40@gmail.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Hyderabad, Musheerabad</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ScrapBin. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== FLOATING WHATSAPP BUTTON ==================== -->
+    <a href="https://wa.me/918985736783" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ==================== NAVBAR SCROLL EFFECT ====================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ==================== HAMBURGER MENU ====================
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // ==================== ACTIVE NAV LINK ====================
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ==================== MODAL FUNCTIONS ====================
+        // Modals removed - direct to WhatsApp/Contact
+
+        // ==================== FORM HANDLERS ====================
+        // Contact form removed - direct WhatsApp/Phone contact
+
+        // ==================== TOAST NOTIFICATION ====================
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background: linear-gradient(135deg, #1a1a1a, #121212);
+                border: 1px solid rgba(212, 118, 60, 0.3);
+                border-left: 4px solid #d4763c;
+                padding: 20px 25px;
+                border-radius: 12px;
+                color: #f5f5f5;
+                font-family: 'Inter', sans-serif;
+                font-size: 0.95rem;
+                max-width: 400px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                z-index: 3000;
+                transform: translateX(120%);
+                transition: transform 0.4s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Animate out
+            setTimeout(() => {
+                toast.style.transform = 'translateX(120%)';
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 4000);
+        }
+
+        // ==================== SCROLL REVEAL ====================
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // ==================== SMOOTH SCROLL FOR ANCHOR LINKS ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ==================== CATEGORY CARD INTERACTION ====================
+    </script>
+</body>
+</html>
