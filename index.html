@@ -9,17 +9,17 @@
     <style>
         /* ==================== CSS VARIABLES ==================== */
         :root {
-            --bg-dark: #0a0a0a;
-            --bg-charcoal: #121212;
-            --bg-grey: #1a1a1a;
-            --copper: #d4763c;
-            --copper-light: #e8945c;
-            --copper-glow: rgba(212, 118, 60, 0.3);
-            --off-white: #f5f5f5;
-            --grey-text: #a0a0a0;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-hover: rgba(255, 255, 255, 0.08);
+            --bg-dark: #1a1408;
+            --bg-charcoal: #221c0e;
+            --bg-grey: #2a2214;
+            --gold: #d4a843;
+            --gold-light: #e8c46c;
+            --gold-glow: rgba(212, 168, 67, 0.3);
+            --off-white: #f5f0e6;
+            --grey-text: #b0a890;
+            --glass-bg: rgba(212, 168, 67, 0.05);
+            --glass-border: rgba(212, 168, 67, 0.15);
+            --glass-hover: rgba(212, 168, 67, 0.1);
         }
 
         /* ==================== RESET & BASE ==================== */
@@ -31,6 +31,8 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         body {
@@ -39,6 +41,8 @@
             color: var(--off-white);
             line-height: 1.6;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
         }
 
         /* ==================== SCROLLBAR ==================== */
@@ -51,7 +55,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--copper);
+            background: var(--gold);
             border-radius: 4px;
         }
 
@@ -60,10 +64,13 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
         }
 
         .section {
             padding: 100px 0;
+            width: 100%;
+            overflow: hidden;
         }
 
         .section-title {
@@ -84,8 +91,8 @@
             margin-right: auto;
         }
 
-        .copper-text {
-            color: var(--copper);
+        .gold-text {
+            color: var(--gold);
         }
 
         /* ==================== GLASS CARD BASE ==================== */
@@ -100,8 +107,8 @@
 
         .glass-card:hover {
             background: var(--glass-hover);
-            border-color: var(--copper-glow);
-            box-shadow: 0 8px 32px var(--copper-glow);
+            border-color: var(--gold-glow);
+            box-shadow: 0 8px 32px var(--gold-glow);
             transform: translateY(-5px);
         }
 
@@ -122,24 +129,24 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--copper), var(--copper-light));
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
             color: var(--bg-dark);
-            box-shadow: 0 4px 20px var(--copper-glow);
+            box-shadow: 0 4px 20px var(--gold-glow);
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 30px rgba(212, 118, 60, 0.5);
+            box-shadow: 0 6px 30px rgba(212, 168, 67, 0.5);
             transform: translateY(-2px);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--off-white);
-            border: 2px solid var(--copper);
+            border: 2px solid var(--gold);
         }
 
         .btn-secondary:hover {
-            background: var(--copper);
+            background: var(--gold);
             color: var(--bg-dark);
         }
 
@@ -181,7 +188,7 @@
         }
 
         .logo i {
-            color: var(--copper);
+            color: var(--gold);
             font-size: 1.8rem;
         }
 
@@ -202,7 +209,7 @@
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: var(--copper);
+            color: var(--gold);
         }
 
         .nav-links .btn-primary {
@@ -245,16 +252,17 @@
             padding-top: 80px;
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .hero::before {
             content: '';
             position: absolute;
             top: -50%;
-            right: -30%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
             border-radius: 50%;
             animation: pulse 8s ease-in-out infinite;
         }
@@ -267,8 +275,13 @@
         .hero-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 40px;
             align-items: center;
+            width: 100%;
+        }
+
+        .hero-text {
+            overflow: hidden;
         }
 
         .hero-text h1 {
@@ -277,6 +290,7 @@
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
+            word-wrap: break-word;
         }
 
         .hero-text p {
@@ -284,6 +298,7 @@
             color: var(--grey-text);
             margin-bottom: 2rem;
             max-width: 500px;
+            word-wrap: break-word;
         }
 
         .hero-buttons {
@@ -308,7 +323,7 @@
         }
 
         .trust-line i {
-            color: var(--copper);
+            color: var(--gold);
         }
 
         /* Hero Visual */
@@ -317,11 +332,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .hero-graphic {
             position: relative;
-            width: 450px;
+            width: 100%;
+            max-width: 450px;
             height: 450px;
         }
 
@@ -336,7 +353,7 @@
         .hero-graphic-main img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             filter: brightness(1.1) contrast(1.05);
         }
 
@@ -345,7 +362,7 @@
             position: absolute;
             inset: 0;
             border-radius: 30px;
-            border: 2px solid var(--copper-glow);
+            border: 2px solid var(--gold-glow);
             background: linear-gradient(to top, rgba(10, 10, 10, 0.6) 0%, transparent 50%);
             pointer-events: none;
         }
@@ -357,13 +374,13 @@
 
         .hero-graphic-main i {
             font-size: 8rem;
-            color: var(--copper);
+            color: var(--gold);
             opacity: 0.8;
         }
 
         .hero-float-card {
             position: absolute;
-            padding: 15px 20px;
+            padding: 12px 16px;
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
@@ -372,28 +389,29 @@
             align-items: center;
             gap: 10px;
             animation: float 4s ease-in-out infinite;
+            white-space: nowrap;
         }
 
         .hero-float-card:nth-child(2) {
             top: 10%;
-            right: -10%;
+            right: 5%;
             animation-delay: -1s;
         }
 
         .hero-float-card:nth-child(3) {
             bottom: 20%;
-            left: -15%;
+            left: 0%;
             animation-delay: -2s;
         }
 
         .hero-float-card:nth-child(4) {
             bottom: 5%;
-            right: -5%;
+            right: 10%;
             animation-delay: -3s;
         }
 
         .hero-float-card i {
-            color: var(--copper);
+            color: var(--gold);
             font-size: 1.2rem;
         }
 
@@ -437,7 +455,7 @@
 
         .category-icon i {
             font-size: 1.8rem;
-            color: var(--copper);
+            color: var(--gold);
         }
 
         .category-card h3 {
@@ -500,7 +518,7 @@
         }
 
         .feature-list li i {
-            color: var(--copper);
+            color: var(--gold);
             width: 20px;
         }
 
@@ -517,7 +535,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, var(--copper), var(--copper-glow), transparent);
+            background: linear-gradient(to bottom, var(--gold), var(--gold-glow), transparent);
             transform: translateX(-50%);
         }
 
@@ -547,7 +565,7 @@
             transform: translateX(-50%);
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--copper), var(--copper-light));
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -557,7 +575,7 @@
             font-size: 1.2rem;
             color: var(--bg-dark);
             z-index: 1;
-            box-shadow: 0 0 20px var(--copper-glow);
+            box-shadow: 0 0 20px var(--gold-glow);
         }
 
         .timeline-content h4 {
@@ -588,7 +606,7 @@
             width: 60px;
             height: 60px;
             margin: 0 auto 20px;
-            background: linear-gradient(135deg, var(--copper-glow), transparent);
+            background: linear-gradient(135deg, var(--gold-glow), transparent);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -597,7 +615,7 @@
 
         .why-card-icon i {
             font-size: 1.5rem;
-            color: var(--copper);
+            color: var(--gold);
         }
 
         .why-card h3 {
@@ -631,7 +649,7 @@
             font-family: 'Poppins', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--copper);
+            color: var(--gold);
             margin-bottom: 5px;
         }
 
@@ -644,6 +662,8 @@
         .cta-section {
             padding: 100px 0;
             position: relative;
+            overflow: hidden;
+            width: 100%;
         }
 
         .cta-section::before {
@@ -652,9 +672,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 600px;
-            height: 400px;
-            background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
+            width: 500px;
+            height: 350px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
             border-radius: 50%;
             opacity: 0.5;
         }
@@ -728,8 +748,8 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--copper);
-            box-shadow: 0 0 15px var(--copper-glow);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
         }
 
         .form-group textarea {
@@ -769,7 +789,7 @@
         }
 
         .contact-info-icon i {
-            color: var(--copper);
+            color: var(--gold);
             font-size: 1.1rem;
         }
 
@@ -826,9 +846,9 @@
         }
 
         .social-links a:hover {
-            background: var(--copper);
+            background: var(--gold);
             color: var(--bg-dark);
-            border-color: var(--copper);
+            border-color: var(--gold);
         }
 
         .footer-links h4,
@@ -860,7 +880,7 @@
 
         .footer-links a:hover,
         .footer-categories a:hover {
-            color: var(--copper);
+            color: var(--gold);
         }
 
         .footer-contact-item {
@@ -873,7 +893,7 @@
         }
 
         .footer-contact-item i {
-            color: var(--copper);
+            color: var(--gold);
             width: 18px;
         }
 
@@ -950,7 +970,7 @@
         }
 
         .modal-close:hover {
-            background: var(--copper);
+            background: var(--gold);
             color: var(--bg-dark);
         }
 
@@ -995,7 +1015,7 @@
         .mobile-menu-links a:hover,
         .mobile-menu-links a.active {
             background: var(--glass-bg);
-            color: var(--copper);
+            color: var(--gold);
         }
 
         .mobile-menu-links .btn {
@@ -1055,6 +1075,28 @@
         .whatsapp-float:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Fix all overflow issues */
+        .categories-grid,
+        .why-grid,
+        .stats-grid,
+        .footer-grid,
+        .contact-grid {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .glass-card {
+            overflow: hidden;
+        }
+
+        .category-card,
+        .why-card,
+        .stat-item,
+        .cta-card {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         /* ==================== RESPONSIVE ==================== */
@@ -1134,40 +1176,100 @@
             }
 
             .section {
-                padding: 60px 0;
+                padding: 50px 0;
             }
 
             .section-title {
-                font-size: 1.8rem;
+                font-size: 1.7rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 90px;
+                padding-bottom: 30px;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 20px;
             }
 
             .hero-text h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+
+            .hero-text p {
+                font-size: 0.95rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .trust-line {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                width: 100%;
+                overflow: hidden;
             }
 
             .hero-graphic {
-                width: 250px;
-                height: 250px;
+                width: 80%;
+                max-width: 300px;
+                height: 300px;
+                margin: 0 auto;
+            }
+
+            .hero-float-card {
+                display: none;
             }
 
             .categories-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .category-card {
+                padding: 20px 12px;
+            }
+
+            .category-icon {
+                height: 100px;
             }
 
             .why-grid {
                 grid-template-columns: 1fr;
+                gap: 12px;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 15px;
             }
 
             .stat-item h2 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
+            }
+
+            .cta-card {
+                padding: 30px 20px;
             }
 
             .cta-card h2 {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
+            }
+
+            .cta-card p {
+                font-size: 0.9rem;
             }
 
             .cta-buttons {
@@ -1180,14 +1282,27 @@
                 justify-content: center;
             }
 
+            .contact-info {
+                padding: 20px;
+            }
+
             .footer-grid {
                 grid-template-columns: 1fr;
+                gap: 25px;
             }
         }
 
         @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
             .hero-text h1 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
+            }
+
+            .hero-text p {
+                font-size: 0.9rem;
             }
 
             .hero-buttons {
@@ -1198,29 +1313,124 @@
             .hero-buttons .btn {
                 width: 100%;
                 justify-content: center;
+                padding: 12px 16px;
+                font-size: 0.9rem;
             }
 
             .trust-line {
-                gap: 8px;
-                font-size: 0.8rem;
-                flex-wrap: wrap;
+                gap: 6px;
+                font-size: 0.75rem;
             }
 
             .hero-graphic {
-                width: 220px;
-                height: 220px;
-            }
-
-            .hero-float-card {
-                display: none;
+                width: 85%;
+                max-width: 260px;
+                height: 260px;
             }
 
             .categories-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .category-card {
+                padding: 15px 10px;
+            }
+
+            .category-icon {
+                height: 90px;
+            }
+
+            .category-card h3 {
+                font-size: 0.85rem;
+            }
+
+            .category-card p {
+                font-size: 0.7rem;
+                margin-bottom: 10px;
+            }
+
+            .category-card .btn {
+                padding: 5px 12px;
+                font-size: 0.75rem;
+            }
+
+            .why-card {
+                padding: 20px 15px;
+            }
+
+            .why-card h3 {
+                font-size: 0.95rem;
+            }
+
+            .why-card p {
+                font-size: 0.85rem;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .stat-item {
+                padding: 12px 8px;
+            }
+
+            .stat-item h2 {
+                font-size: 1.4rem;
+            }
+
+            .stat-item p {
+                font-size: 0.75rem;
+            }
+
+            .cta-card {
+                padding: 25px 15px;
+            }
+
+            .cta-card h2 {
+                font-size: 1.3rem;
+            }
+
+            .timeline-content {
+                padding: 15px;
+            }
+
+            .timeline-content h4 {
+                font-size: 0.95rem;
+            }
+
+            .timeline-content p {
+                font-size: 0.85rem;
+            }
+
+            .contact-info {
+                padding: 15px;
+            }
+
+            .contact-info-item h4 {
+                font-size: 0.9rem;
+            }
+
+            .contact-info-item p {
+                font-size: 0.85rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.8rem;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 15px;
+                left: 15px;
+            }
+
+            .mobile-menu {
+                width: 85%;
+                padding: 60px 15px 20px;
             }
         }
     </style>
@@ -1268,7 +1478,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text reveal">
-                    <h1>We Are <span class="copper-text">Buyers</span> Of All Types Of Scrap.</h1>
+                    <h1>We Are <span class="gold-text">Buyers</span> Of All Types Of Scrap.</h1>
                     <p>Serving Hyderabad, Secunderabad, Musheerabad and all over Telangana. We buy scrap from IT companies, offices, factories and households. Get instant cash for your scrap with free pickup from your doorstep.</p>
                     <div class="hero-buttons">
                         <a href="https://wa.me/918985736783" target="_blank" rel="noopener" class="btn btn-primary">
@@ -1309,7 +1519,7 @@
     <!-- ==================== CATEGORIES SECTION ==================== -->
     <section class="section" id="categories">
         <div class="container">
-            <h2 class="section-title reveal">What Scrap Do You <span class="copper-text">Have?</span></h2>
+            <h2 class="section-title reveal">What Scrap Do You <span class="gold-text">Have?</span></h2>
             <p class="section-subtitle reveal">We buy all types of scrap from IT companies, offices, factories and households in Hyderabad, Secunderabad, Musheerabad and across Telangana. Choose your category and get the best price today.</p>
             <div class="categories-grid">
                 <div class="glass-card category-card reveal" data-category="copper">
@@ -1383,7 +1593,7 @@
     <!-- ==================== HOW IT WORKS ==================== -->
     <section class="section" id="how-it-works">
         <div class="container">
-            <h2 class="section-title reveal">How It <span class="copper-text">Works</span></h2>
+            <h2 class="section-title reveal">How It <span class="gold-text">Works</span></h2>
             <p class="section-subtitle reveal">Selling your scrap is easy. Follow these simple steps and get paid instantly.</p>
             <div class="timeline">
                 <div class="timeline-line"></div>
@@ -1429,7 +1639,7 @@
     <!-- ==================== WHY CHOOSE US ==================== -->
     <section class="section" id="why-us">
         <div class="container">
-            <h2 class="section-title reveal">Why Choose <span class="copper-text">ScrapBin?</span></h2>
+            <h2 class="section-title reveal">Why Choose <span class="gold-text">ScrapBin?</span></h2>
             <p class="section-subtitle reveal">We are the most trusted scrap buyers in Hyderabad, Secunderabad, Musheerabad and all over Telangana. We buy from IT companies, offices, factories and households.</p>
             <div class="why-grid">
                 <div class="glass-card why-card reveal">
@@ -1492,7 +1702,7 @@
     <section class="cta-section" id="cta">
         <div class="container">
             <div class="glass-card cta-card reveal">
-                <h2>We Are <span class="copper-text">Buyers</span> Of All Scrap.</h2>
+                <h2>We Are <span class="gold-text">Buyers</span> Of All Scrap.</h2>
                 <p>Serving Hyderabad, Secunderabad, Musheerabad and all over Telangana. We buy scrap from IT companies, offices, factories and households. Contact us today for the best scrap prices and free pickup.</p>
                 <div class="cta-buttons">
                     <a href="https://wa.me/918985736783" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Contact on WhatsApp</a>
@@ -1505,7 +1715,7 @@
     <!-- ==================== CONTACT SECTION ==================== -->
     <section class="section" id="contact">
         <div class="container">
-            <h2 class="section-title reveal">Contact <span class="copper-text">Us</span></h2>
+            <h2 class="section-title reveal">Contact <span class="gold-text">Us</span></h2>
             <p class="section-subtitle reveal">Ready to sell your scrap? Whether you are an IT company, office, factory or household, contact us now for instant cash and free pickup in Hyderabad and Telangana.</p>
             <div class="contact-grid">
                 <div class="glass-card contact-info reveal" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
@@ -1516,7 +1726,7 @@
                         </div>
                         <div class="contact-info-text">
                             <h4>WhatsApp</h4>
-                            <p><a href="https://wa.me/918985736783" target="_blank" rel="noopener" style="color: var(--copper); text-decoration: none;">+91 8985736783</a></p>
+                            <p><a href="https://wa.me/918985736783" target="_blank" rel="noopener" style="color: var(--gold); text-decoration: none;">+91 8985736783</a></p>
                         </div>
                     </div>
                     <div class="contact-info-item">
@@ -1690,9 +1900,9 @@
                 position: fixed;
                 bottom: 30px;
                 right: 30px;
-                background: linear-gradient(135deg, #1a1a1a, #121212);
-                border: 1px solid rgba(212, 118, 60, 0.3);
-                border-left: 4px solid #d4763c;
+                background: linear-gradient(135deg, #2a2214, #221c0e);
+                border: 1px solid rgba(212, 168, 67, 0.3);
+                border-left: 4px solid #d4a843;
                 padding: 20px 25px;
                 border-radius: 12px;
                 color: #f5f5f5;
